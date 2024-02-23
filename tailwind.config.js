@@ -2,7 +2,12 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        custom: ['Roboto Mono', 'monospace', 'sans-serif'],
+        title: ['Protest Riot', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };
