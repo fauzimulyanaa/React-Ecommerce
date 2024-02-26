@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 
 import cart from '../../assets/cart.png';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Navbar({ totalItems }) {
-  const location = useLocation();
+  // const location = useLocation();
   return (
     <nav className="bg-white text-black shadow-md font-custom">
       <div className="flex justify-between px-20 h-[63px] items-center">
@@ -42,12 +42,10 @@ function Navbar({ totalItems }) {
             <button className="bg-white text-black px-5 py-1 rounded-lg">Login</button>
           </div>
           <div className="w-[35px] h-[35px] bg-gray-300 rounded-full flex items-center justify-center">
-            {location.pathname === '/' && (
-              <Link to="/cart" className="wrapper">
-                <img src={cart} alt="cart icon" className=" icon" />
-                <p className="item-count">{totalItems}</p>
-              </Link>
-            )}
+            <Link to="/cart" className="wrapper">
+              <img src={cart} alt="cart icon" className=" icon" />
+              {totalItems === 0 ? <p className="item-count">0</p> : <p className="item-count">{totalItems}</p>}
+            </Link>
           </div>
         </div>
       </div>

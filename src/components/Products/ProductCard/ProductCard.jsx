@@ -9,9 +9,11 @@ function ProductCard({ product }) {
     navigate(`/detail-product/${itemId}`);
   };
 
+  const limitedProducts = product.slice(0, 3);
+
   return (
     <>
-      {product.map((item) => {
+      {limitedProducts.map((item) => {
         return (
           <div className="font-custom w-[520px] bg-gray-100 group  cursor-pointer relative" key={item.id}>
             <div className="absolute h-full w-full bg-black/20 flex items-center justify-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
