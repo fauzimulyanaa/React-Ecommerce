@@ -16,9 +16,9 @@ function Navbar({ totalItems }) {
         <div>
           <ul className="flex gap-20 text-[13px] tracking-widest items-center">
             <li>
-              <a href="#" className=" hover:text-gray-300">
+              <Link to="/" className=" hover:text-gray-300">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#" className=" hover:text-gray-300">

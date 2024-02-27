@@ -16,7 +16,7 @@ function HomeProduct() {
   console.log(product);
 
   return (
-    <div className="px-[50px] mb-[200px]">
+    <div className="px-[50px] mb-[100px]">
       <div className="">
         <h1 className="font-custom text-3xl font-bold">Popular Collections</h1>
       </div>

@@ -9,7 +9,7 @@ function ProductCard({ product }) {
     navigate(`/detail-product/${itemId}`);
   };
 
-  const limitedProducts = product.slice(0, 3);
+  const limitedProducts = product.slice(0, 2);
 
   return (
     <>
