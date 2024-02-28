@@ -1,10 +1,21 @@
 /* eslint-disable react/prop-types */
 
+import { useState, useEffect } from 'react';
 import cart from '../../assets/cart.png';
 import { Link } from 'react-router-dom';
+import { commerce } from '../../lib/Commerce';
 
-function Navbar({ totalItems }) {
-  // const location = useLocation();
+function Navbar() {
+  const [total, setTotal] = useState({});
+
+  const fetchCart = async () => {
+    const fetchedCart = await commerce.cart.retrieve();
+    setTotal(fetchedCart);
+  };
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
   return (
     <nav className="bg-white text-black shadow-md font-custom">
       <div className="flex justify-between px-20 h-[63px] items-center">
@@ -21,9 +32,9 @@ function Navbar({ totalItems }) {
               </Link>
             </li>
             <li>
-              <a href="#" className=" hover:text-gray-300">
+              <Link to="/product" className=" hover:text-gray-300">
                 Products
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#" className=" hover:text-gray-300">
@@ -44,7 +55,7 @@ function Navbar({ totalItems }) {
           <div className="w-[35px] h-[35px] bg-gray-300 rounded-full flex items-center justify-center">
             <Link to="/cart" className="wrapper">
               <img src={cart} alt="cart icon" className=" icon" />
-              {totalItems === 0 ? <p className="item-count">0</p> : <p className="item-count">{totalItems}</p>}
+              {total.total_items === 0 ? <p className="item-count">0</p> : <p className="item-count">{total.total_items}</p>}
             </Link>
           </div>
         </div>

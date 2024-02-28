@@ -1,6 +1,6 @@
 // import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import { Products } from './components';
+
 // import { commerce } from './lib/Commerce';
 // import Cart from './components/Cart/CartPages';
 // import CartPages from './components/Cart/CartPages';
@@ -8,6 +8,7 @@ import CheckoutForm from './components/CheckOutForm/CheckOut/CheckOut';
 import Home from './pages/Home';
 import DetailProductPage from './pages/DetailProductPage/DetailProductPage';
 import CartPages from './pages/CartPages/CartPages';
+import Products from './pages/ProductPages/ProductPages';
 
 function App() {
   // const [product, setProduct] = useState([]);
@@ -64,7 +65,7 @@ function App() {
       <>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/product" element={<Products products={product} onAddCart={handleAdd} />} /> */}
+          <Route path="/product" element={<Products />} />
           <Route path="/detail-product/:id" element={<DetailProductPage />} />
           <Route path="/checkout" element={<CheckoutForm />} />
           <Route path="/cart" element={<CartPages />} />
