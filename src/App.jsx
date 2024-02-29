@@ -30,15 +30,6 @@ function App() {
   //   }
   // };
 
-  // const handleUpdateCartQty = async (productId, quantity) => {
-  //   try {
-  //     const item = await commerce.cart.update(productId, { quantity });
-  //     setCart(item);
-  //   } catch (error) {
-  //     console.error('Error adding item to cart:', error);
-  //   }
-  // };
-
   // const handleRemoveCart = async (productId) => {
   //   try {
   //     const item = await commerce.cart.remove(productId);

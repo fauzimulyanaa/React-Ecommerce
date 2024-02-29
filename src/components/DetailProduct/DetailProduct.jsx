@@ -88,7 +88,7 @@ function DetailProduct() {
   return (
     <>
       <Navbar />
-      <div className=" h-auto pb-[40px] flex justify-around pt-20 gap-7 px-20 font-custom bg-gray-100 relative">
+      <div className=" h-auto pb-[180px] flex justify-around pt-20 gap-7 px-20 font-custom bg-gray-100 relative ">
         <div className="h-[400px]  w-[600px] ">
           <div className="absolute top-4  cursor-pointer transition duration-300 transform hover:scale-105">
             <Link to="/product" className="flex items-center gap-2">
@@ -125,15 +125,7 @@ function DetailProduct() {
               )}
             </select>
           </div>
-          <div className="border-[1px] border-gray-200"></div>
-          <div className="flex items-center justify-between mt-7">
-            <h1 className="text-1xl uppercase">Quantity</h1>
-            <div className="qty">
-              <button className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-l transition duration-200">-</button>
-              <span className="bg-gray-200 text-gray-700 py-2 px-4">0</span>
-              <button className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-r transition duration-200">+</button>
-            </div>
-          </div>
+
           <div className="onkir flex items-center gap-5 mt-8 bg-gray-100 p-2 w-full rounded-md mb-10">
             <img src={truck} alt="truck icon" className="pl-2" />
             <p className="text-[10px] text-[#5C7CFA] pt-2">Shipping costs are calculated during the payment process.</p>

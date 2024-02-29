@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import cart from '../../assets/cart.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { commerce } from '../../lib/Commerce';
 
 function Navbar() {
   const [total, setTotal] = useState({});
+  const location = useLocation();
 
   const fetchCart = async () => {
     const fetchedCart = await commerce.cart.retrieve();
@@ -15,7 +16,7 @@ function Navbar() {
 
   useEffect(() => {
     fetchCart();
-  }, []);
+  }, [total]);
   return (
     <nav className="bg-white text-black shadow-md font-custom">
       <div className="flex justify-between px-20 h-[63px] items-center">
@@ -52,12 +53,14 @@ function Navbar() {
           <div className="">
             <button className="bg-white text-black px-5 py-1 rounded-lg">Login</button>
           </div>
-          <div className="w-[35px] h-[35px] bg-gray-300 rounded-full flex items-center justify-center">
-            <Link to="/cart" className="wrapper">
-              <img src={cart} alt="cart icon" className=" icon" />
-              {total.total_items === 0 ? <p className="item-count">0</p> : <p className="item-count">{total.total_items}</p>}
-            </Link>
-          </div>
+          {location.pathname !== '/cart' && (
+            <div className="w-[35px] h-[35px] bg-gray-300 rounded-full flex items-center justify-center">
+              <Link to="/cart" className="wrapper">
+                <img src={cart} alt="cart icon" className=" icon" />
+                {total.total_items === 0 ? <p className="item-count">0</p> : <p className="item-count">{total.total_items}</p>}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>
