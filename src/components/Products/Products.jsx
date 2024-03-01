@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import BuyNow from '../HomeProduct/BuyNow/BuyNow';
 import { commerce } from '../../lib/Commerce';
 import Love from '../../assets/love.png';
+import Filter from '../Filter/Filter';
 
 function Products() {
   const [product, setProduct] = useState([]);
@@ -55,6 +56,7 @@ function Products() {
   return (
     <main className="container-fluid pb-[100px]">
       <BuyNow />
+      <Filter />
       <div className="flex px-[10px] flex-wrap justify-center items-center gap-10">
         {product.map((item) => {
           return (

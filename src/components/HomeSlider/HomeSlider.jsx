@@ -34,7 +34,7 @@ function HomeSlider() {
   return (
     <div className="mb-[10px] px-[50px] mt-10 font-custom">
       <div className="flex justify-between gap-7 ">
-        <Slider {...settings} className="relative overflow-hidden w-[100%] rounded-lg  shadow-lg bg-[#FFF7F1] h-[350px]">
+        <Slider {...settings} className="relative overflow-hidden w-[100%] rounded-lg  shadow-lg bg-[#F0F3FF] h-[350px]">
           <div className="left w-full h-[350px] flex justify-center items-center pb-[90px] ">
             <div className="flex items-center justify-between gap-2 px-[70px]">
               <div className="w-[50%]">

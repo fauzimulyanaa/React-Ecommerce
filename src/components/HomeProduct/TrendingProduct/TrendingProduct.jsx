@@ -13,6 +13,10 @@ function TrendingProduct() {
           <img src={Trend2} alt="Nike Shoes" className="w-full" />
         </div>
       </div>
+      <div className="font-custom flex flex-col justify-center mx-auto items-center mt-[60px] mb-[30px]">
+        <h1 className="text-5xl">Shop Now, Goodlook Later</h1>
+        <p className="w-[60%] text-center mt-6">{"We have a bunch collection for you!.let's go explore and find your dream shoes, make it happen"}</p>
+      </div>
     </div>
   );
 }

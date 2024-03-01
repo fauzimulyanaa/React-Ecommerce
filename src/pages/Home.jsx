@@ -11,8 +11,8 @@ function Home() {
       <Navbar />
       <HomeSlider />
       <HomeProduct />
-      <TrendingProduct />
       <BestSeller />
+      <TrendingProduct />
       <JoinMember />
       <Footer />
     </div>
