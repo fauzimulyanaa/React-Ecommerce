@@ -38,7 +38,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <a href="#" className=" hover:text-gray-300">
+              <a href="/about" className=" hover:text-gray-300">
                 About
               </a>
             </li>

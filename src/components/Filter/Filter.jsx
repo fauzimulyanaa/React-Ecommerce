@@ -1,136 +1,59 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
-import arup from '../../assets/ar-up.svg';
-import btnback from '../../assets/btnback.svg';
+import { useEffect, useState } from 'react';
+import { commerce } from '../../lib/Commerce';
 
-function Filter() {
-  const [expanded, setExpanded] = useState(true);
-  const [filterTransit, setFilterTransit] = useState(false);
-  const [filterFacilities, setFilterFacilities] = useState(false);
-  const [filterDeparture, setFilterDeparture] = useState(false);
-  const [filterArrived, setFilterArrived] = useState(false);
-  const [filterAirlines, setFilterAirlines] = useState(false);
-  const [filterTicket, setFilterTicket] = useState(false);
+function Filter({ onFilterChange }) {
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [products, setProducts] = useState([]);
+
+  const handleCategoryChange = (event) => {
+    const categorySlug = event.target.value;
+    setSelectedCategory(categorySlug);
+    onFilterChange(categorySlug); // Panggil fungsi onFilterChange dengan slug kategori yang dipilih
+  };
+
   return (
-    <div className="max-w-[1366px] flex mx-auto pb-[25px] px-4 sm:px-6 lg:px-8 pt-7 bg-[#F5F6FA] gap-x-9">
-      <div className={`md:w-[27%] w-[200px] h-full md:relative absolute rounded-[15px] p-4 bg-[#fff] ${expanded ? null : 'hidden'}`}>
-        <div className="border-b border-[#E5E5E5] mb-5">
-          <div className="flex justify-between items-center mb-5">
-            <h1 className="text-[#000] text-[16px] font-semibold">Transit</h1>
-            <img src={filterTransit ? arup : btnback} alt="arrow" className="cursor-pointer" />
-          </div>
-          <div className={`${filterTransit ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">Direct</h1>
-            <input type="checkbox" />
-          </div>
-          <div className={`${filterTransit ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">Transit</h1>
-            <input type="checkbox" />
-          </div>
-          <div className={`${filterTransit ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">Transit 2+</h1>
-            <input type="checkbox" />
-          </div>
-        </div>
-        <div className="border-b border-[#E5E5E5] mb-5">
-          <div className="flex justify-between items-center mb-5">
-            <h1 className="text-[#000] text-[16px] font-semibold">Facilities</h1>
-            <img src={filterFacilities ? arup : btnback} onClick={() => setFilterFacilities(!filterFacilities)} alt="arrow" className="cursor-pointer" />
-          </div>
-          <div className={`${filterFacilities ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">Luggage</h1>
-            <input type="checkbox" value={'1'} />
-          </div>
-          <div className={`${filterFacilities ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">In-Flight Meal</h1>
-            <input type="checkbox" value={'2'} />
-          </div>
-          <div className={`${filterFacilities ? 'flex' : 'hidden'} justify-between items-center mb-5`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">Wi-fi</h1>
-            <input type="checkbox" value={'3'} />
+    <div className="w-[400px] mx-9 font-custom  p-4 border-[0.8px] border-black rounded-lg shadow-lg h-[400px]">
+      <h1 className="text-xl font-bold mb-4">Filterable Sneakers</h1>
+      <div className="space-y-4">
+        <div>
+          <h2 className="text-lg font-semibold mb-2">Category</h2>
+          <div className="relative">
+            <select
+              className="block appearance-none w-full bg-white border border-gray-400 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-blue-500"
+              onChange={handleCategoryChange}
+              value={selectedCategory}
+            >
+              <option value="">All</option>
+              <option value="nike-dunk">Nike Dunk</option>
+              <option value="nike-air-max">Nike Air Max</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M9 11l4 4 4-4h-8z" />
+              </svg>
+            </div>
           </div>
         </div>
-        <div className="border-b border-[#E5E5E5] mb-5">
-          <div className="flex justify-between items-center mb-5">
-            <h1 className="text-[#000] text-[16px] font-semibold">Departure Time</h1>
-            <img src={`${filterDeparture ? '/ar-up.svg' : '/btnback.svg'}`} onClick={() => setFilterDeparture(!filterDeparture)} alt="arrow" className="cursor-pointer" />
-          </div>
-          <div className={`${filterDeparture ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">00:00 - 06:00</h1>
-            <input type="checkbox" />
-          </div>
-          <div className={`${filterDeparture ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">06:00 - 12:00</h1>
-            <input type="checkbox" />
-          </div>
-          <div className={`${filterDeparture ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">12:00 - 18:00</h1>
-            <input type="checkbox" />
-          </div>
-          <div className={`${filterDeparture ? 'flex' : 'hidden'} justify-between items-center mb-5`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">18:00 - 24:00</h1>
-            <input type="checkbox" />
+        <div>
+          <h2 className="text-lg font-semibold mb-2">Brand</h2>
+          <div className="relative">
+            <select className="block appearance-none w-full bg-white border border-gray-400 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-blue-500">
+              <option>All</option>
+              <option>Nike</option>
+              <option>Adidas</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M9 11l4 4 4-4h-8z" />
+              </svg>
+            </div>
           </div>
         </div>
-        <div className="border-b border-[#E5E5E5] mb-5">
-          <div className="flex justify-between items-center mb-5">
-            <h1 className="text-[#000] text-[16px] font-semibold">Time Arrived</h1>
-            <img src={`${filterArrived ? '/ar-up.svg' : '/btnback.svg'}`} onClick={() => setFilterArrived(!filterArrived)} alt="arrow" className="cursor-pointer" />
-          </div>
-          <div className={`${filterArrived ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">00:00 - 06:00</h1>
-            <input type="checkbox" />
-          </div>
-          <div className={`${filterArrived ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">06:00 - 12:00</h1>
-            <input type="checkbox" />
-          </div>
-          <div className={`${filterArrived ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">12:00 - 18:00</h1>
-            <input type="checkbox" />
-          </div>
-          <div className={`${filterArrived ? 'flex' : 'hidden'} justify-between items-center mb-5`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">18:00 - 24:00</h1>
-            <input type="checkbox" />
-          </div>
-        </div>
-        <div className="border-b border-[#E5E5E5] mb-5">
-          <div className="flex justify-between items-center mb-5">
-            <h1 className="text-[#000] text-[16px] font-semibold">Airlines</h1>
-            <img src={`${filterAirlines ? '/ar-up.svg' : '/btnback.svg'}`} onClick={() => setFilterAirlines(!filterAirlines)} alt="arrow" className="cursor-pointer" />
-          </div>
-          <div className={`${filterAirlines ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">Garuda Indonesia</h1>
-            <input type="checkbox" value={'2'} />
-          </div>
-          <div className={`${filterAirlines ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">Air Asia</h1>
-            <input type="checkbox" value={'4'} />
-          </div>
-          <div className={`${filterAirlines ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">Lion Air</h1>
-            <input type="checkbox" value={'3'} />
-          </div>
-          <div className={`${filterAirlines ? 'flex' : 'hidden'} justify-between items-center mb-3`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">Singapore Airlines</h1>
-            <input type="checkbox" value={'1'} />
-          </div>
-          <div className={`${filterAirlines ? 'flex' : 'hidden'} justify-between items-center mb-5`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">Citilink</h1>
-            <input type="checkbox" value={'5'} />
-          </div>
-        </div>
-        <div className="mb-5 border-[#E5E5E5] border-b">
-          <div className="flex justify-between items-center mb-5">
-            <h1 className="text-[#000] text-[16px] font-semibold">Ticket Price</h1>
-            <img src={`${filterTicket ? '/ar-up.svg' : '/btnback.svg'}`} onClick={() => setFilterTicket(!filterTicket)} alt="arrow" className="cursor-pointer" />
-          </div>
-          <div className={`${filterTicket ? 'flex' : 'hidden'} justify-between items-center mb-7`}>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">Lowest</h1>
-            <h1 className="text-[#000] text-[14px] font-normal leading-5">Higest</h1>
-          </div>
-          <div className={`${filterTicket ? 'flex' : 'hidden'} justify-between items-center mb-3`}></div>
-          <div className={`${filterTicket ? 'flex' : 'hidden'} justify-between items-center mb-5`}></div>
+        <div>
+          <h2 className="text-lg font-semibold mb-2">Price</h2>
+          <input type="number" placeholder="Max Price" className="border border-gray-400 px-4 py-2 w-full" />
         </div>
       </div>
     </div>
