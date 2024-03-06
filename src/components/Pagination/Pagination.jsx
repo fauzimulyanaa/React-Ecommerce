@@ -1,30 +1,41 @@
 /* eslint-disable react/prop-types */
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) => {
+  const pageNumbers = [];
+
+  for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  if (pageNumbers.length <= 1) {
+    // Jika hanya ada satu halaman, tidak perlu menampilkan pagination
+    return null;
+  }
+
   return (
-    <nav className="flex justify-center mt-4">
-      <ul className="flex">
-        <li>
-          <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1} className={`px-3 py-1 mr-1 rounded ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 text-white'}`}>
-            Previous
-          </button>
-        </li>
-        {Array.from({ length: totalPages }, (_, i) => (
-          <li key={i}>
-            <button onClick={() => onPageChange(i + 1)} className={`px-3 py-1 mx-1 rounded ${currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300 hover:bg-blue-500 hover:text-white'}`}>
-              {i + 1}
+    <nav className="flex justify-center mt-8">
+      <ul className="pagination flex items-center">
+        {currentPage > 1 && (
+          <li>
+            <button className="px-4 py-2 text-white bg-blue-500" onClick={() => paginate(currentPage - 1)}>
+              Previous
+            </button>
+          </li>
+        )}
+        {pageNumbers.map((number) => (
+          <li key={number} className={number === currentPage ? 'active bg-blue-500' : 'hover:bg-blue-300'}>
+            <button className="px-4 py-2 text-white" onClick={() => paginate(number)}>
+              {number}
             </button>
           </li>
         ))}
-        <li>
-          <button
-            onClick={() => onPageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className={`px-3 py-1 ml-1 rounded ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 text-white'}`}
-          >
-            Next
-          </button>
-        </li>
+        {currentPage < pageNumbers.length && (
+          <li>
+            <button className="px-4 py-2 text-white bg-blue-500" onClick={() => paginate(currentPage + 1)}>
+              Next
+            </button>
+          </li>
+        )}
       </ul>
     </nav>
   );

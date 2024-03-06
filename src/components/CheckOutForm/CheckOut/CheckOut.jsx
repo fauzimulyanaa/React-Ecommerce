@@ -28,12 +28,12 @@ function CheckoutForm() {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-8">
+    <div className="max-w-[900px] mx-auto mt-8">
       <div className="flex items-center mb-4">
         <div className={`mr-4 rounded-full h-8 w-8 flex items-center justify-center bg-gray-300 ${step >= 1 ? 'bg-blue-500' : 'bg-gray-300'}`}>
           <span className="text-white">{step >= 1 ? '1' : null}</span>
         </div>
-        <div className={`mr-4 h-1 flex-1 bg-gray-300 ${step >= 2 ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
+        <div className={`mr-4 h-1 flex-1 bg-gray-300  ${step >= 2 ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
         <div className={`mr-4 rounded-full h-8 w-8 flex items-center justify-center bg-gray-300 ${step >= 2 ? 'bg-blue-500' : 'bg-gray-300'}`}>
           <span className="text-white">{step >= 2 ? '2' : null}</span>
         </div>

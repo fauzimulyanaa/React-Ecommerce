@@ -24,3 +24,11 @@
   width: 25px;
   height: 25px;
 }
+
+.product-item {
+  transition: transform 0.3s ease-in-out;
+}
+
+.product-item:hover {
+  transform: scale(1.05);
+}

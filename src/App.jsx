@@ -10,6 +10,8 @@ import DetailProductPage from './pages/DetailProductPage/DetailProductPage';
 import CartPages from './pages/CartPages/CartPages';
 import Products from './pages/ProductPages/ProductPages';
 import AboutPages from './pages/AboutPages/AboutPages';
+import ContactPages from './pages/ContactPages/ContactPages';
+import CheckOutPage from './pages/CheckOut/CheckOut';
 
 function App() {
   // const [product, setProduct] = useState([]);
@@ -61,6 +63,8 @@ function App() {
         <Route path="/checkout" element={<CheckoutForm />} />
         <Route path="/cart" element={<CartPages />} />
         <Route path="/about" element={<AboutPages />} />
+        <Route path="/contact" element={<ContactPages />} />
+        <Route path="/checkout" element={<CheckOutPage />} />
       </Routes>
     </Router>
   );

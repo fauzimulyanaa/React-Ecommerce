@@ -1,11 +1,12 @@
-import { Navbar } from '../../components';
+import { Footer, Navbar } from '../../components';
 import Cart from '../../components/Cart/Cart';
 
 function CartPages() {
   return (
-    <div>
+    <div className="bg-[#ecece8]">
       <Navbar />
       <Cart />
+      <Footer />
     </div>
   );
 }

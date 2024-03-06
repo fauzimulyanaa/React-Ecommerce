@@ -1,13 +1,18 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { commerce } from '../../lib/Commerce';
 import { Link } from 'react-router-dom';
 import close from '../../assets/close.png';
 import Swal from 'sweetalert2';
+import Pagination from '../Pagination/Pagination';
 
 function Cart() {
   const [cart, setCart] = useState({});
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(2);
+
   const isEmpty = !cart?.line_items?.length;
 
   const fetchCart = async () => {
@@ -22,7 +27,8 @@ function Cart() {
       },
     });
     try {
-      setCart(await commerce.cart.retrieve());
+      const res = await commerce.cart.retrieve();
+      setCart(res);
     } catch (error) {
       console.error('Error fetching item:', error);
 
@@ -117,7 +123,14 @@ function Cart() {
     fetchCart();
   }, []);
 
-  console.log(cart);
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = cart.line_items?.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo(0, 0);
+  };
 
   const EmptyCart = () => {
     return (
@@ -135,36 +148,42 @@ function Cart() {
   const FilledCart = () => {
     return (
       <div className="flex flex-col pb-[300px]">
-        {cart.line_items.map((item) => {
+        {currentProducts.map((item) => {
           return (
             <>
-              <div className="card mt-20 flex items-center px-20 gap-10" key={item.id}>
-                <div className="left w-[300px] h-[200px] border-2 border-black flex justify-center items-center">
-                  <img src={item.image.url} alt={item.name} />
+              <div className="card mt-20 flex items-start px-20 gap-10" key={item.id}>
+                <div className="">
+                  <div className="left w-[300px] h-[200px] border-2 border-black flex justify-center items-center bg-white rounded-lg transition duration-300 transform hover:scale-105">
+                    <img src={item.image.url} alt={item.name} />
+                  </div>
+                  <div className="qty mt-5 flex justify-center">
+                    <button className="bg-red-500 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-l transition duration-200" onClick={() => handleUpdateCartQty(item.id, item.quantity - 1)}>
+                      -
+                    </button>
+                    <span className="bg-white text-gray-700 py-2 px-4">{item.quantity}</span>
+                    <button className="bg-blue-500 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-r transition duration-200" onClick={() => handleUpdateCartQty(item.id, item.quantity + 1)}>
+                      +
+                    </button>
+                  </div>
                 </div>
-                <div className="right w-[350px]">
-                  <div className="flex gap-10 items-center justify-between mb-10 ">
-                    <h1 className="font-bold text-1xl">{item.name}</h1>
+                <div className="right w-[350px] mt-5">
+                  <div className="flex gap-10 items-center justify-between mb-5">
+                    <h1 className="font-bold text-2xl">{item.name}</h1>
                     <button className="w-[20px] h-[20px] bg-red-600 rounded-full flex items-center justify-center transition duration-300 transform hover:scale-105 cursor-pointer" onClick={() => handleRemoveCart(item.id)}>
                       <img src={close} alt="close icon" />
                     </button>
                   </div>
                   <div className="">
-                    <div className="flex items-center justify-between mt-7">
-                      <h1 className="text-[13px] uppercase">Quantity</h1>
-                      <div className="qty">
-                        <button className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-l transition duration-200" onClick={() => handleUpdateCartQty(item.id, item.quantity - 1)}>
-                          -
-                        </button>
-                        <span className="bg-gray-200 text-gray-700 py-2 px-4">{item.quantity}</span>
-                        <button className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-r transition duration-200" onClick={() => handleUpdateCartQty(item.id, item.quantity + 1)}>
-                          +
-                        </button>
-                      </div>
+                    <h1 className="">Experience luxury on your feet...</h1>
+                  </div>
+                  <div className="">
+                    <div className="flex items-center justify-between mt-5">
+                      <p className="text-lg uppercase">Size </p>
+                      <p className="font-bold">{item.selected_options[0].option_name}</p>
                     </div>
                   </div>
                   <div className="">
-                    <div className="flex items-center justify-between mt-7">
+                    <div className="flex items-center justify-between mt-3">
                       <h1 className="text-lg uppercase">Total</h1>
                       <p className="qty font-bold">{item.line_total.formatted_with_symbol}</p>
                     </div>
@@ -175,6 +194,9 @@ function Cart() {
             </>
           );
         })}
+        <div className="mt-10">
+          <Pagination productsPerPage={productsPerPage} totalProducts={cart.total_items} paginate={paginate} currentPage={currentPage} />
+        </div>
       </div>
     );
   };
@@ -190,7 +212,7 @@ function Cart() {
         {isEmpty ? (
           <></>
         ) : (
-          <div className="order mt-20 border-[1px] border-black h-[260px]  mr-20 px-10 py-5 rounded-md shadow-lg w-[500px]">
+          <div className="order mt-20 border-[1px] border-black h-[290px]  mr-20 px-10 py-5 rounded-md shadow-lg w-[500px] bg-white">
             <h1 className="uppercase font-bold">Order Summary</h1>
             <div className="tax flex items-center justify-between mt-5">
               <p>Subtotal</p>
@@ -198,16 +220,20 @@ function Cart() {
             </div>
             <div className="tax flex items-center justify-between mt-3">
               <p>Tax</p>
-              <p className="font-bold">Free</p>
+              <p className="font-bold text-orange-500">Free</p>
+            </div>
+            <div className="tax flex items-center justify-between mt-3">
+              <p>Shipping</p>
+              <p className="font-bold text-orange-500">Free</p>
             </div>
             <div className="tax flex items-center justify-between mt-3">
               <p>Total</p>
               <p className="font-bold">{cart?.subtotal?.formatted_with_symbol}</p>
             </div>
             <div className="mt-7">
-              <button className="flex items-center justify-center gap-3 py-2 rounded-xl bg-orange-500 w-full transition duration-300 transform hover:scale-105">
+              <Link to="/checkout" className="flex items-center justify-center gap-3 py-2 rounded-xl bg-orange-500 w-full transition duration-300 transform hover:scale-105 text-white">
                 <p>Checkout</p>
-              </button>
+              </Link>
             </div>
           </div>
         )}

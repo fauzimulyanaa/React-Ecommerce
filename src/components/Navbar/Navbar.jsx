@@ -43,7 +43,7 @@ function Navbar() {
               </a>
             </li>
             <li>
-              <a href="#" className=" hover:text-gray-300">
+              <a href="/contact" className=" hover:text-gray-300">
                 Contact
               </a>
             </li>

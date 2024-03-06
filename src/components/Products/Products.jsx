@@ -16,6 +16,8 @@ function Products() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(8);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -70,6 +72,15 @@ function Products() {
     navigate(`/detail-product/${itemId}`);
   };
 
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <main className="container-fluid pb-[200px] h-auto">
       <div className="font-custom mx-10 mt-28 mb-10 flex justify-between items-center">
@@ -81,16 +92,17 @@ function Products() {
         </p>
         <div className="">
           <p>
-            Showing <span className="font-bold">{filteredProducts.length}</span> result total
+            Showing <span className="font-bold">{(currentPage - 1) * productsPerPage + 1}</span> - <span className="font-bold">{Math.min(currentPage * productsPerPage, filteredProducts.length)}</span> of{' '}
+            <span className="font-bold">{filteredProducts.length}</span> total results
           </p>
         </div>
       </div>
       <div className="flex justify-between ">
         <Filter onFilterChange={handleFilterChange} />
         <div className="flex  w-[70%] flex-wrap justify-center items-center gap-10">
-          {filteredProducts.map((item) => {
+          {currentProducts.map((item) => {
             return (
-              <div className="" key={item.id}>
+              <div className="product-item" key={item.id}>
                 <div className="font-custom w-[400px] bg-gray-100 group  cursor-pointer relative">
                   <div className="img flex justify-center">
                     <img src={item.image.url} alt="" />
@@ -116,15 +128,11 @@ function Products() {
           })}
         </div>
       </div>
-      {/* <div className="mt-20">
-        <Pagination />
-      </div> */}
+      <div className="mt-20">
+        <Pagination productsPerPage={productsPerPage} totalProducts={filteredProducts.length} paginate={paginate} currentPage={currentPage} />
+      </div>
     </main>
   );
 }
 
 export default Products;
-
-{
-  /* */
-}
