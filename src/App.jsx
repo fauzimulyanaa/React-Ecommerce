@@ -12,27 +12,21 @@ import Products from './pages/ProductPages/ProductPages';
 import AboutPages from './pages/AboutPages/AboutPages';
 import ContactPages from './pages/ContactPages/ContactPages';
 import CheckOutPage from './pages/CheckOut/CheckOut';
-import { Auth0Provider } from '@auth0/auth0-react';
-
-const domain = import.meta.env.VITE_AUTH0_DOMAIN;
-const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
 
 function App() {
   return (
-    <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/product" element={<Products />} />
-          <Route path="/detail-product/:id" element={<DetailProductPage />} />
-          <Route path="/checkout" element={<CheckoutForm />} />
-          <Route path="/cart" element={<CartPages />} />
-          <Route path="/about" element={<AboutPages />} />
-          <Route path="/contact" element={<ContactPages />} />
-          <Route path="/checkout" element={<CheckOutPage />} />
-        </Routes>
-      </Router>
-    </Auth0Provider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/product" element={<Products />} />
+        <Route path="/detail-product/:id" element={<DetailProductPage />} />
+        <Route path="/checkout" element={<CheckoutForm />} />
+        <Route path="/cart" element={<CartPages />} />
+        <Route path="/about" element={<AboutPages />} />
+        <Route path="/contact" element={<ContactPages />} />
+        <Route path="/checkout" element={<CheckOutPage />} />
+      </Routes>
+    </Router>
   );
 }
 
