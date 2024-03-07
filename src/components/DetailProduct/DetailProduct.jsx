@@ -3,23 +3,19 @@
 import { Link, useParams } from 'react-router-dom';
 import { commerce } from '../../lib/Commerce';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import truck from '../../assets/truck.png';
 import cart1 from '../../assets/cart-1.png';
 import love from '../../assets/love.png';
-import back from '../../assets/back.png';
 import { Navbar } from '../../components';
-// import { selectSize, setSize } from '../../features/SizeSlice';
 
 function DetailProduct() {
   const [item, setItem] = useState({});
   const [cart, setCart] = useState({});
   const [loading, setLoading] = useState(false);
+
   const { id } = useParams();
-  const dispatch = useDispatch();
-  // const selectedSize = useSelector(selectSize);
+
   const [optionId, setOptionId] = useState('');
   const [groupId, setGroupId] = useState('');
 
@@ -39,9 +35,10 @@ function DetailProduct() {
     try {
       const res = await commerce.products.retrieve(id);
       setItem(res);
+      window.scrollTo(0, 0);
     } catch (error) {
       console.error('Error fetching item:', error);
-      // Tampilkan pesan kesalahan jika terjadi kesalahan saat mengambil data
+
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -80,7 +77,7 @@ function DetailProduct() {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'An error occurred while adding the product to the cart.',
+        text: 'Please pick your size',
         showConfirmButton: true,
       });
     } finally {
@@ -104,13 +101,22 @@ function DetailProduct() {
   return (
     <>
       <Navbar />
-      <div className=" h-auto pb-[180px] flex justify-around pt-20 gap-7 px-20 font-custom  relative ">
+      <div className=" h-auto pb-[180px] flex justify-around pt-32 gap-7 px-20 font-custom  relative ">
         <div className="h-[400px]  w-[600px] ">
-          <div className="absolute top-4  cursor-pointer transition duration-300 transform hover:scale-105">
-            <Link to="/product" className="flex items-center gap-2">
-              <img src={back} alt="back icon" className="w-[30px]" />
-              <h1 className="">Back To</h1>
-            </Link>
+          <div className="absolute top-12  cursor-pointer  ">
+            <p className="tracking-widest	flex gap-7 items-center">
+              <Link to="/" className="transition duration-300 transform hover:scale-105">
+                Home
+              </Link>{' '}
+              {'>'}
+              <Link to="/product" className="transition duration-300 transform hover:scale-105">
+                Products
+              </Link>{' '}
+              {'>'}
+              <Link to="" className="transition duration-300 transform hover:scale-105" style={{ fontWeight: 'bold' }}>
+                Detail Products
+              </Link>
+            </p>
           </div>
           <div className="img bg-white rounded-lg flex justify-center items-center h-[400px]  w-[600px] ">
             <img src={item?.image?.url} alt={item.name} />

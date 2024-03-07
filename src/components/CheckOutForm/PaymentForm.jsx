@@ -23,7 +23,7 @@ function PaymentForm({ nextStep, prevStep }) {
     try {
       Swal.fire({
         title: 'Success!',
-        text: 'Payment ticket successful!',
+        text: 'Payment  successful!',
         icon: 'success',
       });
 
@@ -133,7 +133,7 @@ function PaymentForm({ nextStep, prevStep }) {
           </div>
         </div>
       </div>
-      <div className="flex mt-10">
+      <div className="flex mt-10 ">
         <button onClick={prevStep} className="mr-2 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
           Back
         </button>

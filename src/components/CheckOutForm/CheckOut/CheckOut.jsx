@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import AddressForm from '../AddressForm';
 import PaymentForm from '../PaymentForm';
+import ConfirmationForm from '../ConfrimForm';
 
 function CheckoutForm() {
   const [step, setStep] = useState(1);
@@ -13,6 +14,8 @@ function CheckoutForm() {
   const prevStep = () => {
     setStep(step - 1);
   };
+
+  const activeStepClass = 'bg-blue-500';
 
   const renderStepContent = () => {
     switch (step) {
@@ -30,35 +33,19 @@ function CheckoutForm() {
   return (
     <div className="max-w-[900px] mx-auto mt-8">
       <div className="flex items-center mb-4">
-        <div className={`mr-4 rounded-full h-8 w-8 flex items-center justify-center bg-gray-300 ${step >= 1 ? 'bg-blue-500' : 'bg-gray-300'}`}>
+        <div className={`mr-4 rounded-full h-8 w-8 flex items-center justify-center ${step >= 1 ? activeStepClass : 'bg-gray-300'}`}>
           <span className="text-white">{step >= 1 ? '1' : null}</span>
         </div>
-        <div className={`mr-4 h-1 flex-1 bg-gray-300  ${step >= 2 ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
-        <div className={`mr-4 rounded-full h-8 w-8 flex items-center justify-center bg-gray-300 ${step >= 2 ? 'bg-blue-500' : 'bg-gray-300'}`}>
+        <div className={`mr-4 h-1 flex-1 ${step >= 2 ? activeStepClass : 'bg-gray-300'}`}></div>
+        <div className={`mr-4 rounded-full h-8 w-8 flex items-center justify-center ${step >= 2 ? activeStepClass : 'bg-gray-300'}`}>
           <span className="text-white">{step >= 2 ? '2' : null}</span>
         </div>
-        <div className={`h-1 flex-1 bg-gray-300 ${step === 3 ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
-        <div className={`rounded-full h-8 w-8 flex items-center justify-center bg-gray-300 ${step === 3 ? 'bg-blue-500' : 'bg-gray-300'}`}>
+        <div className={`h-1 flex-1 ${step === 3 ? activeStepClass : 'bg-gray-300'}`}></div>
+        <div className={`rounded-full h-8 w-8 flex items-center justify-center ${step === 3 ? activeStepClass : 'bg-gray-300'}`}>
           <span className="text-white">{step === 3 ? '3' : null}</span>
         </div>
       </div>
       {renderStepContent()}
-    </div>
-  );
-}
-
-function ConfirmationForm({ prevStep }) {
-  // Confirmation form content goes here
-  return (
-    <div>
-      <h2 className="text-lg font-semibold mb-4">Confirmation</h2>
-      {/* Your confirmation content */}
-      <div className="flex">
-        <button onClick={prevStep} className="mr-2 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
-          Back
-        </button>
-        <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Confirm</button>
-      </div>
     </div>
   );
 }

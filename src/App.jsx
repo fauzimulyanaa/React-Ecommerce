@@ -12,61 +12,27 @@ import Products from './pages/ProductPages/ProductPages';
 import AboutPages from './pages/AboutPages/AboutPages';
 import ContactPages from './pages/ContactPages/ContactPages';
 import CheckOutPage from './pages/CheckOut/CheckOut';
+import { Auth0Provider } from '@auth0/auth0-react';
+
+const domain = import.meta.env.VITE_AUTH0_DOMAIN;
+const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
 
 function App() {
-  // const [product, setProduct] = useState([]);
-  // const [cart, setCart] = useState({});
-
-  // const fetchProduct = async () => {
-  //   const { data } = await commerce.products.list();
-
-  //   setProduct(data);
-  // };
-
-  // const handleAdd = async (productId, quantity) => {
-  //   try {
-  //     const item = await commerce.cart.add(productId, quantity);
-
-  //     setCart(item);
-  //   } catch (error) {
-  //     console.error('Error adding item to cart:', error);
-  //   }
-  // };
-
-  // const handleRemoveCart = async (productId) => {
-  //   try {
-  //     const item = await commerce.cart.remove(productId);
-  //     setCart(item);
-  //   } catch (error) {
-  //     console.error('Error adding item to cart:', error);
-  //   }
-  // };
-
-  // const handleEmptyCart = async () => {
-  //   const item = await commerce.cart.empty();
-  //   setCart(item);
-  // };
-
-  // useEffect(() => {
-  //   fetchProduct();
-  //   // fetchCart();
-  // }, []);
-
-  // console.log(cart);
-
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product" element={<Products />} />
-        <Route path="/detail-product/:id" element={<DetailProductPage />} />
-        <Route path="/checkout" element={<CheckoutForm />} />
-        <Route path="/cart" element={<CartPages />} />
-        <Route path="/about" element={<AboutPages />} />
-        <Route path="/contact" element={<ContactPages />} />
-        <Route path="/checkout" element={<CheckOutPage />} />
-      </Routes>
-    </Router>
+    <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/product" element={<Products />} />
+          <Route path="/detail-product/:id" element={<DetailProductPage />} />
+          <Route path="/checkout" element={<CheckoutForm />} />
+          <Route path="/cart" element={<CartPages />} />
+          <Route path="/about" element={<AboutPages />} />
+          <Route path="/contact" element={<ContactPages />} />
+          <Route path="/checkout" element={<CheckOutPage />} />
+        </Routes>
+      </Router>
+    </Auth0Provider>
   );
 }
 

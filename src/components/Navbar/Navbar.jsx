@@ -50,9 +50,6 @@ function Navbar() {
           </ul>
         </div>
         <div className="flex items-center gap-4">
-          <div className="">
-            <button className="bg-white text-black px-5 py-1 rounded-lg">Login</button>
-          </div>
           {location.pathname !== '/cart' && (
             <div className="w-[35px] h-[35px] bg-gray-300 rounded-full flex items-center justify-center">
               <Link to="/cart" className="wrapper">

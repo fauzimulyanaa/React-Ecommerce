@@ -134,7 +134,7 @@ function Cart() {
 
   const EmptyCart = () => {
     return (
-      <div className="flex justify-center items-center mt-20 mx-20">
+      <div className="flex justify-center items-center mt-20 mx-20 pb-20">
         <div className="flex justify-center flex-col items-center">
           <h1 className="text-xl mb-6">You have no items in your shopping cart, start adding some! </h1>
           <Link to="/product">

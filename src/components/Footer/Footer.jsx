@@ -7,7 +7,7 @@ import instagram from '../../assets/instagram.png';
 function Footer() {
   return (
     <div className="font-custom">
-      <footer className="border-2 border-black h-auto flex justify-center items-center py-10 bg-[#070F2B] text-white flex-col w-full">
+      <footer className=" h-auto flex justify-center items-center py-10 bg-[#070F2B] text-white flex-col w-full">
         <div className="logo flex items-center gap-5 mb-10">
           <img src={logo} alt="logo" />
           <h1 className="text-1xl">SkylineTreasures</h1>
